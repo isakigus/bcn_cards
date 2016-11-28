@@ -1,3 +1,12 @@
+Todo:
+=====
+- implement views logic
+- create documentation
+- create test
+- create fixtures
+- create frontend
+
+----------
 Python – Full Stack Developer Test assignment
 Requirements
 ● Ubuntu 16.04
