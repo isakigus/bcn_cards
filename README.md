@@ -1,10 +1,12 @@
 Todo:
 =====
-- implement views logic
-- create documentation
+- implement views logic (ok)
+- create documentation (ok)
 - create test
-- create fixtures
+- create fixtures 
 - create frontend
+
+- css
 
 Description
 =====

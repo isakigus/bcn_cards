@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title>BCN Tourist Office - be happy</title>
+</head>
+<body>
+
+<h1>BCN Tourist Office - cards management</h1>
+
+<div ng-app="bcn_tourist" ng-controller="mainCtrl">
+
+    <div ng-show="console_show" ng-click="consoleHide()">{{ console }}</div>
+
+    <h1> Api Info </h1>
+
+    <table>
+        <tr>
+            <th ng-repeat="(h,v) in api_data[0]">{{h}}</th>
+        </tr>
+        <tr ng-repeat="row in api_data">
+            <td ng-repeat="(k,v) in row">{{v}}</td>
+        </tr>
+    </table>
+
+    <h1> Cards and Positions Data </h1>
+    <div>
+        <button ng-click="addCard()">Add new card</button>
+    </div>
+    <div ng-repeat="(key, value) in all_data.cards"><p> card id: {{ value.id }} date created: {{ value.create_date
+        }} </p>
+        <button ng-click="removeCard(value.id)">remove card and positions</button>
+        <button ng-click="showPoints(value.id)">show track info</button>
+        <div ng-show="show_point_{{value.id}}">
+            <ul ng-repeat="(k,v) in value.points">
+                <li>id: {{v.id}}</li>
+                <li>lat: {{v.latitud}}</li>
+                <li>lon: {{v.longitud}}</li>
+                <li>date: {{v.create_date}}</li>
+            </ul>
+        </div>
+
+    </div>
+    <div><p>manually add point</p>
+        card id:<input ng-model="card_id"/>
+        latitude: <input ng-model="lat"/>
+        longitude: <input ng-model="lon"/>
+        <button ng-click="addPoint()">Add point</button>
+    </div>
+
+</div>
+<script src="/frontend/app.js"></script>
+</body>
+</html>
