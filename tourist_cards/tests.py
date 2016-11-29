@@ -7,7 +7,7 @@ class CardApi(TestCase):
 
     def test_create_card(self):
 
-        r = requests.post('http://127.0.0.1:8001/card//')
+        r = requests.post('http://127.0.0.1:8000/card//')
         print r.content
 
 

@@ -1,9 +1,9 @@
 
 code_color = function(code){
     if (code == 'OK'){
-        return "green";
+        return "alert-success";
      }else{
-         return "red";
+        return "alert-danger";
      }
 };
 
@@ -26,7 +26,6 @@ app.controller('mainCtrl', function($scope, $http) {
     };
 
     $scope.addCard = function(){
-
         $http.post("/card/")
             .then(function(response) {
                 $scope.console = response.data.info;
@@ -34,7 +33,6 @@ app.controller('mainCtrl', function($scope, $http) {
                 $scope.console_color = code_color(response.data.code);
                 refresh_data();
         });
-
 
     };
 
@@ -71,7 +69,7 @@ app.controller('mainCtrl', function($scope, $http) {
 
         var parameter = JSON.stringify(data);
 
-         $http.post("/card/position", parameter)
+        $http.post("/card/position/", parameter)
             .then(function(response) {
                 $scope.console = response.data.info;
                 $scope.console_show = true;

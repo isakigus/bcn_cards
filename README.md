@@ -1,12 +1,11 @@
-Todo:
-=====
-- implement views logic (ok)
-- create documentation (ok)
+Tasks:
+======
+- implement views logic (ok) 4h
+- create documentation (ok) 2h
 - create test
-- create fixtures 
-- create frontend
-
-- css
+- create fixtures  (ok) 10'
+- create frontend (ok) 3h
+- check deploy 
 
 Description
 =====
