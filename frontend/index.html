@@ -3,52 +3,77 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>BCN Tourist Office - be happy</title>
+
 </head>
 <body>
 
-<h1>BCN Tourist Office - cards management</h1>
+<div class="container">
 
-<div ng-app="bcn_tourist" ng-controller="mainCtrl">
-
-    <div ng-show="console_show" ng-click="consoleHide()">{{ console }}</div>
-
-    <h1> Api Info </h1>
-
-    <table>
-        <tr>
-            <th ng-repeat="(h,v) in api_data[0]">{{h}}</th>
-        </tr>
-        <tr ng-repeat="row in api_data">
-            <td ng-repeat="(k,v) in row">{{v}}</td>
-        </tr>
-    </table>
-
-    <h1> Cards and Positions Data </h1>
-    <div>
-        <button ng-click="addCard()">Add new card</button>
+    <div class="row">
+        <h1 class="bg-primary text-center">BCN Tourist Office - cards management</h1>
     </div>
-    <div ng-repeat="(key, value) in all_data.cards"><p> card id: {{ value.id }} date created: {{ value.create_date
-        }} </p>
-        <button ng-click="removeCard(value.id)">remove card and positions</button>
-        <button ng-click="showPoints(value.id)">show track info</button>
-        <div ng-show="show_point_{{value.id}}">
-            <ul ng-repeat="(k,v) in value.points">
-                <li>id: {{v.id}}</li>
-                <li>lat: {{v.latitud}}</li>
-                <li>lon: {{v.longitud}}</li>
-                <li>date: {{v.create_date}}</li>
-            </ul>
+
+    <div class="row">
+        <div ng-app="bcn_tourist" ng-controller="mainCtrl">
+
+            <div class="alert {{ console_color }}" ng-show="console_show" ng-click="consoleHide()">
+                <strong>{{ console }}!</strong> - click me to hide
+            </div>
+
+            <h1 class="bg-info"> Api Info </h1>
+
+            <div class="well">
+                <table class="table table-striped" cellpadding="10">
+                    <tr>
+                        <th ng-repeat="(h,v) in api_data[0]">{{ h }}</th>
+                    </tr>
+                    <tr ng-repeat="row in api_data">
+                        <td ng-repeat="(k,v) in row">{{ v }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group"><h2 class="bg-info">Manually add point to a card</h2>
+                card id:<input class="form-control" ng-model="card_id"/>
+                latitude: <input class="form-control" ng-model="lat"/>
+                longitude: <input class="form-control" ng-model="lon"/>
+                <button class="btn btn-primary" ng-click="addPoint()">Add point</button>
+            </div>
+            <div>
+                <h2 class="bg-info">Manually add a card</h2>
+                <button class="btn btn-primary" ng-click="addCard()">Add new card</button>
+            </div>
+
+            <h1 class="bg-info"> Cards and Positions Data </h1>
+
+            <div ng-repeat="(key, value) in all_data.cards">
+                <div class="well">
+                    <p><strong> card id </strong>: {{ value.id }} <strong>date created</strong>:{{ value.create_date }}
+                    </p>
+                    <button class="btn btn-danger" ng-click="removeCard(value.id)">remove card and positions</button>
+                    <div>
+                        <p class="bg-info">positions of the tourist records:</p>
+                        <ul class="list-group" ng-repeat="(k,v) in value.points">
+                            <li class="list-group-item">id: {{ v.id }}</li>
+                            <li class="list-group-item">latitude: {{ v.latitud }}</li>
+                            <li class="list-group-item">longitude: {{ v.longitud }}</li>
+                            <li class="list-group-item">date: {{ v.create_date }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
-    <div><p>manually add point</p>
-        card id:<input ng-model="card_id"/>
-        latitude: <input ng-model="lat"/>
-        longitude: <input ng-model="lon"/>
-        <button ng-click="addPoint()">Add point</button>
-    </div>
-
 </div>
 <script src="/frontend/app.js"></script>
 </body>

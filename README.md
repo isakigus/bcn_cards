@@ -1,12 +1,18 @@
-Todo:
-=====
-- implement views logic (ok)
-- create documentation (ok)
-- create test
-- create fixtures 
-- create frontend
+Coverage:
+---------
+- coverage run --source='.' manage.py test
+- coverage html
+- open browser in the html generated
 
-- css
+
+Tasks:
+======
+- implement views logic (ok) 4h
+- create documentation (ok) 1h
+- create test 2h
+- create fixtures  (ok) 10'
+- create frontend (ok) 3h
+- check deploy 
 
 Description
 =====

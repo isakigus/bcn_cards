@@ -1,5 +1,6 @@
+# coding=utf-8
 import sys
-
+import json
 import inspect
 
 from django.views.generic import View
@@ -87,11 +88,11 @@ class Cards(DocumentedView):
         return out
 
     def get(self, request, id=None):
-        """ url: /card/<id>/
+        """ url: /card/(<id>|all)/
             params: id (number)
-            description: search a card by <id>, extra if all is used all the info is displayed
+            description: search a card by <id>, if "all" is used all the cards are displayed
         """
-        data = self.all_data() if id == 'all' in request.path else self.get_cards_data(id)
+        data = self.all_data() if request.path.endswith('all/') else self.get_cards_data(id)
         return JsonResponse(data)
 
     def post(self, request, id=None):
@@ -133,21 +134,20 @@ class Cards(DocumentedView):
 
 
 class PositionApi(DocumentedView):
-    def post(self, request):
+    def post(self, request, card_id=None):
         """  url: /card/position
              params: card_id (number), lat (string), lon(string)
              description: create a new card position by id
         """
-
         try:
-
-            card_id = request.POST.get("card_id", "")
+            params = json.loads(request.body) if request.body else request.POST
+            card_id = params.get("card_id", "")
             card = Card.objects.get(id=card_id)
 
             pos = Position()
             pos.card_id = card
-            pos.latitud = request.POST.get("lat", "")
-            pos.longitud = request.POST.get("lon", "")
+            pos.latitud = params.get("lat", "")
+            pos.longitud = params.get("lon", "")
 
             pos.clean_fields()
             pos.save()
@@ -158,5 +158,28 @@ class PositionApi(DocumentedView):
 
         except Exception as ex:
             response = {'code': 'ERR06', 'info': 'error inserting position: {}'.format(ex)}
+
+        return JsonResponse(response)
+
+    def get(self, request, card_id=None):
+        """  url: /card/position/<card_id>/
+             params: card_id (number)
+             description: get the points from a card by id
+        """
+        try:
+
+            data_dict = {}
+            card = Card.objects.get(id=card_id)
+
+            for pos in Position.objects.filter(card_id=card.id):
+                pos_dict = pos.__dict__
+                pos_dict.pop('_state')
+                data_dict['points'].append(pos_dict)
+
+            response = {'code': 'OK', 'info': data_dict}
+
+        except Exception as ex:
+            error_msg = 'error retrieving points for card {} position: {}'.format(card_id, ex)
+            response = {'code': 'ERR08', 'info': error_msg}
 
         return JsonResponse(response)
