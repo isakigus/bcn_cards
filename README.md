@@ -1,5 +1,36 @@
-Coverage:
----------
+Isaac Díaz 2016
+
+Notes:
+------
+- database used sqlite
+- admin available (admin/covadonga18)
+- one django app
+- backend api two DocumentedViews classes Cards and Positions ( insert/delete/list elements )
+  No updates
+- frontend with angular + bootstrap
+- api documentation automatically generated thought instropction, 
+   searching for DocumentedView
+- test code coverage 78% 
+- total time spent 10h 30m
+- possible improvements
+      - use angular directives
+      - frontend testing
+      - update elements functionality
+      - improve frontend usability
+      - increase coverage
+
+
+Deploy:
+-------
+
+- unpack
+- install requirements
+- python manage.py runserver port
+- open browser
+
+
+How to do coverage:
+-------------------
 - coverage run --source='.' manage.py test
 - coverage html
 - open browser in the html generated
@@ -9,10 +40,10 @@ Tasks:
 ======
 - implement views logic (ok) 4h
 - create documentation (ok) 1h
-- create test 2h
+- create test+coverage (ok) 2h
 - create fixtures  (ok) 10'
 - create frontend (ok) 3h
-- check deploy 
+- check deploy (ok) 10'
 
 Description
 =====
